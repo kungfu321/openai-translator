@@ -3,7 +3,7 @@ import * as utils from '../common/utils'
 import * as lang from './lang'
 import { fetchSSE } from './utils'
 
-export type TranslateMode = 'translate' | 'polishing' | 'summarize' | 'analyze' | 'explain-code'
+export type TranslateMode = 'translate' | 'polishing' | 'summarize' | 'analyze' | 'explain-code' | 'free-talk'
 export type Provider = 'OpenAI' | 'Azure'
 export type APIModel = 'gpt-3.5-turbo' | 'gpt-3.5-turbo-0301' | 'gpt-4' | 'gpt-4-0314' | 'gpt-4-32k' | 'gpt-4-32k-0314'
 
@@ -136,6 +136,13 @@ export async function translate(query: TranslateQuery) {
                     lang.langMap.get(query.detectTo) || query.detectTo
                 } language! If the content is not code, return an error message. If the code has obvious errors, point them out.`
             }
+            break
+        case 'free-talk':
+            systemPrompt = ''
+
+            assistantPrompt = `answer the question and must use ${
+                lang.langMap.get(query.detectTo) || query.detectTo
+            } language!`
             break
     }
 

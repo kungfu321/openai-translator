@@ -10,7 +10,7 @@ import { createUseStyles } from 'react-jss'
 import { AiOutlineTranslation } from 'react-icons/ai'
 import { IoSettingsOutline, IoColorPaletteOutline } from 'react-icons/io5'
 import { TbArrowsExchange } from 'react-icons/tb'
-import { MdOutlineSummarize, MdOutlineAnalytics, MdCode } from 'react-icons/md'
+import { MdOutlineSummarize, MdOutlineAnalytics, MdCode, MdFreeBreakfast } from 'react-icons/md'
 import { detectLang, supportLanguages } from './lang'
 import { translate, TranslateMode } from './translate'
 import { Select, Value, Option } from 'baseui-sd/select'
@@ -346,6 +346,10 @@ const actionStrItems: Record<TranslateMode, IActionStrItem> = {
     'explain-code': {
         beforeStr: 'Explaining...',
         afterStr: 'Explained',
+    },
+    'free-talk': {
+        beforeStr: 'Thinking...',
+        afterStr: 'Answer',
     },
 }
 
@@ -966,7 +970,7 @@ export function PopupCard(props: IPopupCardProps) {
                                     <div data-tauri-drag-region className={styles.iconContainer}>
                                         <img data-tauri-drag-region className={styles.icon} src={icon} />
                                         <div data-tauri-drag-region className={styles.iconText}>
-                                            OpenAI Translator
+                                            Translator
                                         </div>
                                     </div>
                                     <div className={styles.popupCardHeaderActionsContainer}>
@@ -1087,6 +1091,18 @@ export function PopupCard(props: IPopupCardProps) {
                                                 }}
                                             >
                                                 <MdCode />
+                                            </Button>
+                                        </Tooltip>
+                                        <Tooltip content={t('Free Talk')} placement={isDesktopApp() ? 'bottom' : 'top'}>
+                                            <Button
+                                                size='mini'
+                                                kind={translateMode === 'free-talk' ? 'primary' : 'secondary'}
+                                                onClick={() => {
+                                                    setTranslateMode('free-talk')
+                                                    // no need to change detectTo
+                                                }}
+                                            >
+                                                <MdFreeBreakfast />
                                             </Button>
                                         </Tooltip>
                                     </div>

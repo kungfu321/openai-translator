@@ -125,6 +125,7 @@ function TranslateModeSelector(props: ITranslateModeSelectorProps) {
                     { label: t('Summarize'), id: 'summarize' },
                     { label: t('Analyze'), id: 'analyze' },
                     { label: t('Explain Code'), id: 'explain-code' },
+                    { label: t('Free Talk'), id: 'free-talk' },
                     { label: t('Nop'), id: 'nop' },
                 ] as {
                     label: string
