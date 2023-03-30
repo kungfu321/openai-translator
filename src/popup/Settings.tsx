@@ -795,7 +795,7 @@ export function Settings(props: IPopupProps) {
                     >
                         <img width='22' src={icon} alt='logo' />
                         <h2>
-                            OpenAI Translator
+                            Translator
                             {AppConfig?.version ? (
                                 <a
                                     href='https://github.com/yetone/openai-translator/releases'

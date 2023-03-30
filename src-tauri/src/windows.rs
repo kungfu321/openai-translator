@@ -199,7 +199,7 @@ pub fn show_main_window(center: bool, set_focus: bool) -> tauri::Window {
             .skip_taskbar(true)
             .center()
             .focused(false)
-            .title("OpenAI Translator");
+            .title("Translator");
 
             #[cfg(target_os = "macos")]
             {

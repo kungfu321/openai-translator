@@ -31,7 +31,6 @@ import rocket from './assets/images/rocket.gif'
 import partyPopper from './assets/images/party-popper.gif'
 import { Event } from '@tauri-apps/api/event'
 import SpeakerMotion from '../components/SpeakerMotion'
-import IpLocationNotification from '../components/IpLocationNotification'
 import { HighlightInTextarea } from '../common/highlight-in-textarea'
 import LRUCache from 'lru-cache'
 import { ISettings, IThemedStyleProps } from '../common/types'
@@ -39,6 +38,10 @@ import { useTheme } from '../common/hooks/useTheme'
 import { speak } from '../common/tts'
 import { Tooltip } from '../components/Tooltip'
 import { useSettings } from '../common/hooks/useSettings'
+import ReactMarkdown from 'react-markdown'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import remarkGfm from 'remark-gfm'
 
 const cache = new LRUCache({
     max: 500,
@@ -1108,11 +1111,11 @@ export function PopupCard(props: IPopupCardProps) {
                                     </div>
                                 </div>
                                 <div className={styles.popupCardContentContainer}>
-                                    {settings?.apiURL === defaultAPIURL && (
+                                    {/* {settings?.apiURL === defaultAPIURL && (
                                         <div>
                                             <IpLocationNotification />
                                         </div>
-                                    )}
+                                    )} */}
                                     <div ref={editorContainerRef} className={styles.popupCardEditorContainer}>
                                         <div
                                             style={{
@@ -1353,7 +1356,38 @@ export function PopupCard(props: IPopupCardProps) {
                                                         className={styles.popupCardTranslatedContentContainer}
                                                     >
                                                         <div>
-                                                            {translatedLines.map((line, i) => {
+                                                            <ReactMarkdown
+                                                                // eslint-disable-next-line react/no-children-prop
+                                                                children={translatedText}
+                                                                remarkPlugins={[remarkGfm]}
+                                                                components={{
+                                                                    code({ inline, className, children, ...props }) {
+                                                                        const match = /language-(\w+)/.exec(
+                                                                            className || ''
+                                                                        )
+                                                                        return !inline && match ? (
+                                                                            <SyntaxHighlighter
+                                                                                // eslint-disable-next-line react/no-children-prop
+                                                                                children={String(children).replace(
+                                                                                    /\n$/,
+                                                                                    ''
+                                                                                )}
+                                                                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                                                                // @ts-ignore
+                                                                                style={dark}
+                                                                                language={match[1]}
+                                                                                PreTag='div'
+                                                                                {...props}
+                                                                            />
+                                                                        ) : (
+                                                                            <code className={className} {...props}>
+                                                                                {children}
+                                                                            </code>
+                                                                        )
+                                                                    },
+                                                                }}
+                                                            />
+                                                            {/* {translatedLines.map((line, i) => {
                                                                 return (
                                                                     <p className={styles.paragraph} key={`p-${i}`}>
                                                                         {line}
@@ -1363,7 +1397,7 @@ export function PopupCard(props: IPopupCardProps) {
                                                                             )}
                                                                     </p>
                                                                 )
-                                                            })}
+                                                            })} */}
                                                         </div>
                                                     </div>
                                                     {translatedText && (

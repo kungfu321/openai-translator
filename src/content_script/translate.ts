@@ -47,7 +47,7 @@ export async function translate(query: TranslateQuery) {
     let systemPrompt = 'You are a translation engine that can only translate text and cannot interpret it.'
     let assistantPrompt = `translate from ${lang.langMap.get(query.detectFrom) || query.detectFrom} to ${
         lang.langMap.get(query.detectTo) || query.detectTo
-    }`
+    } return markdown syntax.`
     switch (query.mode) {
         case 'translate':
             if (query.detectTo === 'wyw' || query.detectTo === 'yue') {
@@ -100,7 +100,9 @@ export async function translate(query: TranslateQuery) {
             if (fromChinese) {
                 assistantPrompt = `使用 ${lang.langMap.get(query.detectFrom) || query.detectFrom} 语言润色此段文本`
             } else {
-                assistantPrompt = `polish this text in ${lang.langMap.get(query.detectFrom) || query.detectFrom}`
+                assistantPrompt = `polish this text in ${
+                    lang.langMap.get(query.detectFrom) || query.detectFrom
+                } return markdown syntax.`
             }
             break
         case 'summarize':
@@ -110,7 +112,7 @@ export async function translate(query: TranslateQuery) {
             } else {
                 assistantPrompt = `summarize this text in the most concise language and must use ${
                     lang.langMap.get(query.detectTo) || query.detectTo
-                } language!`
+                } language! return markdown syntax.`
             }
             break
         case 'analyze':
@@ -122,7 +124,7 @@ export async function translate(query: TranslateQuery) {
                     lang.langMap.get(query.detectTo) || query.detectTo
                 } and explain the grammar in the original text using ${
                     lang.langMap.get(query.detectTo) || query.detectTo
-                }`
+                } return markdown syntax.`
             }
             break
         case 'explain-code':
@@ -134,7 +136,7 @@ export async function translate(query: TranslateQuery) {
             } else {
                 assistantPrompt = `explain the provided code, regex or script in the most concise language and must use ${
                     lang.langMap.get(query.detectTo) || query.detectTo
-                } language! If the content is not code, return an error message. If the code has obvious errors, point them out.`
+                } language! If the content is not code, return an error message. If the code has obvious errors, point them out return markdown syntax.`
             }
             break
         case 'free-talk':
@@ -142,7 +144,7 @@ export async function translate(query: TranslateQuery) {
 
             assistantPrompt = `answer the question and must use ${
                 lang.langMap.get(query.detectTo) || query.detectTo
-            } language!`
+            } language! return markdown syntax.`
             break
     }
 

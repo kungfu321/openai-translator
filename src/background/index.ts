@@ -5,7 +5,7 @@ browser.contextMenus.create(
     {
         id: 'open-translator',
         type: 'normal',
-        title: 'OpenAI Translator',
+        title: 'Translator',
         contexts: ['page', 'selection'],
     },
     () => {
